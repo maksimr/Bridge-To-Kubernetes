@@ -473,8 +473,8 @@ jobs:
       packagesToPack: src/dsc/dsc.csproj
       packDirectory: '$(Build.ArtifactStagingDirectory)/nuget'
       nobuild: true
+      configuration: '$(BuildConfiguration)'
       buildProperties: 'NuspecFile=bin\${{ parameters.BuildConfiguration }}\net6.0\win-x64\publish\dsc.nuspec'
-      arguments: -c $(BuildConfiguration) --no-build --no-restore  /p:outputPath=$(Build.Repository.LocalPath)\src\cli\bin\$(BuildConfiguration)\netcoreapp2.1\publish\ /p:BUILDING_CLIENT_NUGET=true
   - task: AzureArtifacts.manifest-generator-task.manifest-generator-task.ManifestGeneratorTask@0
     displayName: 'Manifest Generator for nuget'
     inputs:
@@ -885,4 +885,14 @@ jobs:
     inputs:
       PathtoPublish: $(Build.ArtifactStagingDirectory)/zip
       ArtifactName: zipv2
+  - task: DotNetCoreCLI@2
+    displayName: 'dotnet pack CLI NuGet (Windows)'
+    inputs:
+      command: pack
+      feedsToUse: config
+      packagesToPack: src/dsc/dsc.csproj
+      packDirectory: '$(Build.ArtifactStagingDirectory)/nuget'
+      nobuild: true
+      configuration: '$(BuildConfiguration)'
+      buildProperties: 'NuspecFile=bin\${{ parameters.BuildConfiguration }}\net6.0\win-x64\publish\dsc.nuspec'
 ...
