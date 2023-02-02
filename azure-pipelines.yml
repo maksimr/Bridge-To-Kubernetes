@@ -899,9 +899,9 @@ jobs:
         src/**/rp.client.csproj
         src/**/common.client.csproj
       custom: 'pack '
-      configuration: ${{ parameters.BuildConfiguration }}
+      #configuration: ${{ parameters.BuildConfiguration }}
       nobuild: true
-      buildProperties: 'NuspecFile=bin\${{ parameters.BuildConfiguration }}\net6.0\win-x64\publish\dsc.nuspec'
+      buildProperties: 'NuspecFile=bin\${{ parameters.BuildConfiguration }}\net6.0\win-x64\publish\dsc.nuspec;Configuration=${{ parameters.BuildConfiguration }}'
       zipAfterPublish: false
       modifyOutputPath: false
       selectOrConfig: config
