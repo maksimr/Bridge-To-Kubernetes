@@ -901,7 +901,7 @@ jobs:
       custom: 'pack '
       configuration: $(BuildConfiguration)
       nobuild: true
-      buildProperties: 'NuspecFile=bin\${{ parameters.BuildConfiguration }}\net6.0\win-x64\publish\dsc.nuspec'
+      buildProperties: 'Configuration=${{Build.BuildConfiguration}};NuspecFile=bin\${{ parameters.BuildConfiguration }}\net6.0\win-x64\publish\dsc.nuspec'
       zipAfterPublish: false
       modifyOutputPath: false
       selectOrConfig: config
