@@ -885,28 +885,14 @@ jobs:
       PathtoPublish: $(Build.ArtifactStagingDirectory)/zip
       ArtifactName: zipv2
   - task: DotNetCoreCLI@2
-    displayName: dotnet pack CLI NuGet (Windows)
+    displayName: 'dotnet pack CLI NuGet (Windows)'
     inputs:
       command: pack
-      publishWebProjects: false
-      projects: >-
-        src/**/client.csproj
-        src/**/common.csproj
-        src/**/common.auth.csproj
-        src/**/common.json.csproj
-        src/**/execsvc.client.csproj
-        src/**/execsvc.client.autogen.csproj
-        src/**/rp.client.csproj
-        src/**/common.client.csproj
-      custom: 'pack '
-      #configuration: ${{ parameters.BuildConfiguration }}
+      feedsToUse: config
+      packagesToPack: src/dsc/dsc.csproj
+      packDirectory: '$(Build.ArtifactStagingDirectory)/nuget'
       nobuild: true
       buildProperties: 'NuspecFile=bin\${{ parameters.BuildConfiguration }}\net6.0\win-x64\publish\dsc.nuspec;Configuration=${{ parameters.BuildConfiguration }}'
-      zipAfterPublish: false
-      modifyOutputPath: false
-      selectOrConfig: config
-      searchPatternPack: src/dsc/dsc.csproj
-      outputDir: $(Build.ArtifactStagingDirectory)/nuget
   - task: ManifestGeneratorTask@0
     displayName: Manifest Generator for nuget
     inputs:
