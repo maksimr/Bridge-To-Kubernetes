@@ -884,22 +884,3 @@ jobs:
     inputs:
       PathtoPublish: $(Build.ArtifactStagingDirectory)/zip
       ArtifactName: zipv2
-  - task: DotNetCoreCLI@2
-    displayName: 'dotnet pack CLI NuGet (Windows)'
-    inputs:
-      command: pack
-      feedsToUse: config
-      packagesToPack: src/dsc/dsc.csproj
-      packDirectory: '$(Build.ArtifactStagingDirectory)/nuget'
-      nobuild: true
-      buildProperties: 'NuspecFile=bin\${{ parameters.BuildConfiguration }}\net6.0\win-x64\publish\dsc.nuspec;Configuration=${{ parameters.BuildConfiguration }}'
-  - task: ManifestGeneratorTask@0
-    displayName: Manifest Generator for nuget
-    inputs:
-      BuildDropPath: $(Build.ArtifactStagingDirectory)/nuget
-  - task: PublishBuildArtifacts@1
-    displayName: 'Publish Artifact: nuget'
-    inputs:
-      PathtoPublish: $(Build.ArtifactStagingDirectory)/nuget
-      ArtifactName: nuget
-      TargetPath: '\\my\share\$(Build.DefinitionName)\$(Build.BuildNumber)'
