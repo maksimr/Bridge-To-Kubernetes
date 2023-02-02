@@ -473,7 +473,7 @@ jobs:
       packagesToPack: src/dsc/dsc.csproj
       packDirectory: '$(Build.ArtifactStagingDirectory)/nuget'
       nobuild: true
-      buildProperties: 'Configuration=${Build.BuildConfiguration};NuspecFile=bin\${{ parameters.BuildConfiguration }}\net6.0\win-x64\publish\dsc.nuspec'
+      buildProperties: 'Configuration=${{ parameters.BuildConfiguration }};NuspecFile=bin\${{ parameters.BuildConfiguration }}\net6.0\win-x64\publish\dsc.nuspec'
   - task: AzureArtifacts.manifest-generator-task.manifest-generator-task.ManifestGeneratorTask@0
     displayName: 'Manifest Generator for nuget'
     inputs:
@@ -899,9 +899,9 @@ jobs:
         src/**/rp.client.csproj
         src/**/common.client.csproj
       custom: 'pack '
-      configuration: $(BuildConfiguration)
+      #configuration: ${{ parameters.BuildConfiguration }}
       nobuild: true
-      buildProperties: 'Configuration=${{Build.BuildConfiguration}};NuspecFile=bin\${{ parameters.BuildConfiguration }}\net6.0\win-x64\publish\dsc.nuspec'
+      buildProperties: 'Configuration=${{ parameters.BuildConfiguration }};NuspecFile=bin\${{ parameters.BuildConfiguration }}\net6.0\win-x64\publish\dsc.nuspec'
       zipAfterPublish: false
       modifyOutputPath: false
       selectOrConfig: config
