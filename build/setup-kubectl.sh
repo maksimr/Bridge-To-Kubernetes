@@ -2,7 +2,7 @@
 set -e
 
 DEFAULT_INSTALL_LOCATION="/app/kubectl/linux"
-DEFAULT_KUBECTL_VERSION="v1.21.2"
+DEFAULT_KUBECTL_VERSION="v1.25.5"
 
 # Arguments: kubectl version, install location
 function installKubectl {

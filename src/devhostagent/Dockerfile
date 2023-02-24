@@ -1,5 +1,5 @@
 # Build container
-FROM mcr.microsoft.com/dotnet/sdk:6.0-alpine3.16 AS build-alpine
+FROM mcr.microsoft.com/dotnet/sdk:6.0-cbl-mariner2.0 AS build
 
 ARG Configuration=Release
 ARG TelemetryType=TELEMETRY_DEVELOPMENT
@@ -20,7 +20,7 @@ ENV MINDARO_BUILD_NUMBER=${MindaroBuildNumber}
 RUN dotnet publish -c ${Configuration} -o /src/publish devhostAgent.csproj
 
 # Final container
-FROM mcr.microsoft.com/dotnet/aspnet:6.0-alpine3.16 as final
+FROM mcr.microsoft.com/dotnet/aspnet:6.0-cbl-mariner2.0-distroless as final
 WORKDIR /src/devhostagent
-COPY --from=build-alpine /src/publish /src/devhostagent
+COPY --from=build /src/publish /src/devhostagent
 ENTRYPOINT ["dotnet", "/src/devhostagent/Microsoft.BridgeToKubernetes.DevHostAgent.dll"]
