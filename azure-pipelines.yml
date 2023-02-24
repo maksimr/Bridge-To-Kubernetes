@@ -98,16 +98,15 @@ jobs:
     inputs:
       version: $(BuildParameters.dotnetversion)
       installationPath: $(Agent.TempDirectory)/dotnet
-  - task: DotNetCoreCLI@2
-    displayName: restore EndpointManager (Windows) (to download runtime pack)
-    enabled: True
+  - task: NuGetCommand@2
     inputs:
-      command: restore
-      projects: src\endpointmanager\endpointmanager.csproj
-      restoreArguments: -r win-x64
-      selectOrConfig: config
-      nugetConfigPath: src/nuget.config
-      externalEndpoints: dba0ba50-2d4e-4f12-9f5a-42a638da803b
+      command: 'restore'
+      displayName: restore EndpointManager (Windows) (to download runtime pack)
+      enabled: True
+      restoreSolution: 'src\endpointmanager\endpointmanager.csproj'
+      feedsToUse: 'config'
+      nugetConfigPath: 'src/nuget.config'
+      
   - task: NuGetToolInstaller@1
     name: ''
     displayName: Use NuGet 5.9.x
